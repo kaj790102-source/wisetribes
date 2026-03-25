@@ -6,13 +6,16 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
+    "server": "node src/server.js",
     "generate": "node src/index.js generate",
     "post": "node src/index.js post"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
     "axios": "^1.7.0",
+    "cors": "^2.8.6",
     "dotenv": "^16.4.0",
+    "express": "^5.2.1",
     "form-data": "^4.0.0"
   }
 }
