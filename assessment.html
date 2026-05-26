@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Free AI Assessment – WiseTribes</title>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '25605732695720837');
+fbq('track', 'PageView');
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=25605732695720837&ev=PageView&noscript=1"/>
+</noscript>
+<!-- End Meta Pixel Code -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#f5f7fa;color:#0c1a35;min-height:100vh}
+:root{--teal:#00c4a7;--teal2:#00a88e;--tl:#e6faf7;--navy:#0c1a35;--navy2:#162444;--amber:#f59e0b;--gray:#64748b;--lgray:#e1e7ef;--white:#fff;--off:#f5f7fa;--red:#ef4444}
+
+/* NAV */
+.nav{background:var(--navy);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:100}
+.logo{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:700;color:#fff;cursor:pointer}
+.logo span{color:var(--teal)}
+.back{font-size:.85rem;color:rgba(255,255,255,.55);cursor:pointer}
+.back:hover{color:#fff}
+
+/* SCREENS */
+.screen{display:none}.screen.active{display:block}
+
+/* STEP DOTS */
+.steps{display:flex;gap:6px;padding:32px 24px 0;max-width:560px;margin:0 auto}
+.sd{height:4px;border-radius:100px;background:var(--lgray);flex:1;transition:background .3s}
+.sd.on{background:var(--teal)}
+
+/* CARD */
+.wrap{max-width:560px;margin:0 auto;padding:28px 24px 60px}
+.card{background:#fff;border-radius:20px;box-shadow:0 4px 24px rgba(12,26,53,.1);padding:36px 32px}
+.badge{display:inline-flex;align-items:center;gap:6px;background:var(--tl);color:var(--teal2);font-size:.72rem;font-weight:700;padding:5px 14px;border-radius:100px;margin-bottom:16px}
+.card h2{font-family:'Fraunces',serif;font-size:1.75rem;font-weight:700;color:var(--navy);margin-bottom:6px;line-height:1.2}
+.sub{font-size:.87rem;color:var(--gray);margin-bottom:24px;line-height:1.6}
+
+/* FORM */
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.fg{margin-bottom:12px}
+.fg label{display:block;font-size:.78rem;font-weight:600;color:var(--navy);margin-bottom:5px}
+.fg input{width:100%;padding:11px 13px;border:1.5px solid var(--lgray);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.9rem;color:var(--navy);transition:border-color .2s}
+.fg input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,196,167,.12)}
+.fg input.err{border-color:var(--red);box-shadow:0 0 0 3px rgba(239,68,68,.12)}
+.fg .errmsg{font-size:.72rem;color:var(--red);margin-top:4px;display:none}
+.fg .errmsg.show{display:block}
+.clabel.err-label{color:var(--red)}
+
+/* CLASS GRID */
+.clabel{font-size:.78rem;font-weight:600;color:var(--navy);margin-bottom:8px}
+.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px}
+.copt{
+  border:1.5px solid var(--lgray);border-radius:10px;
+  padding:10px 6px;text-align:center;
+  cursor:pointer;font-size:.8rem;font-weight:600;color:var(--gray);
+  transition:all .2s;user-select:none;-webkit-user-select:none;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+  background:#fff;
+}
+.copt:hover{border-color:var(--teal);color:var(--teal);background:var(--tl)}
+.copt.sel{border-color:var(--teal);background:var(--tl);color:var(--teal2)}
+.copt .cn{font-size:1.05rem;font-weight:700;display:block;margin-bottom:2px}
+
+/* BUTTONS */
+.btn{width:100%;padding:14px;border-radius:12px;background:var(--teal);color:#fff;font-family:'DM Sans',sans-serif;font-size:.97rem;font-weight:700;border:none;cursor:pointer;transition:background .2s,transform .15s;margin-top:4px}
+.btn:hover{background:var(--teal2);transform:translateY(-1px)}
+.btn:disabled{background:var(--lgray);color:var(--gray);cursor:not-allowed;transform:none}
+.note{font-size:.74rem;color:var(--gray);text-align:center;margin-top:10px}
+
+/* ASSESSMENT */
+.ameta{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.alvl{display:inline-flex;align-items:center;gap:6px;background:var(--navy);color:#fff;font-size:.73rem;font-weight:700;padding:5px 13px;border-radius:100px}
+.acnt{font-size:.82rem;color:var(--gray);font-weight:600}
+.pbar{height:6px;background:var(--lgray);border-radius:100px;overflow:hidden;margin-bottom:28px}
+.pfill{height:100%;background:linear-gradient(90deg,var(--teal),#00e5c8);border-radius:100px;transition:width .4s}
+.qnum{font-size:.7rem;font-weight:700;color:var(--teal);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.qtext{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:700;color:var(--navy);line-height:1.4;margin-bottom:22px}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:12px;border:1.5px solid var(--lgray);background:#fff;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--navy);font-weight:500;text-align:left;transition:all .18s;width:100%}
+.opt:hover{border-color:var(--teal);background:var(--tl)}
+.opt.sel{border-color:var(--teal);background:var(--tl);color:var(--teal2)}
+.opt.cor{border-color:#22c55e;background:#f0fdf4;color:#166534}
+.opt.wrg{border-color:var(--red);background:#fef2f2;color:#991b1b}
+.ol{width:29px;height:29px;flex-shrink:0;border-radius:7px;border:1.5px solid var(--lgray);display:flex;align-items:center;justify-content:center;font-size:.76rem;font-weight:700;color:var(--gray);background:var(--off);transition:all .18s}
+.opt.sel .ol,.opt.cor .ol{border-color:var(--teal);background:var(--teal);color:#fff}
+.opt.wrg .ol{border-color:var(--red);background:var(--red);color:#fff}
+.opt.cor .ol{border-color:#22c55e;background:#22c55e}
+.qnav{display:flex;justify-content:flex-end;margin-top:20px}
+.bnx{background:var(--navy);color:#fff;padding:11px 26px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:700;border:none;cursor:pointer;transition:background .2s}
+.bnx:hover{background:var(--navy2)}
+.bnx:disabled{background:var(--lgray);color:var(--gray);cursor:not-allowed}
+
+/* RESULT */
+.rwrap{max-width:600px;margin:0 auto;padding:28px 24px 60px}
+.rcard{background:#fff;border-radius:24px;box-shadow:0 4px 24px rgba(12,26,53,.1);padding:40px 36px}
+.rlvl{display:inline-block;padding:5px 16px;border-radius:100px;font-size:.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.rlvl.beg{background:#fef3c7;color:#92400e}
+.rlvl.dev{background:#dbeafe;color:#1e40af}
+.rlvl.str{background:#dcfce7;color:#166534}
+.sbig{display:flex;align-items:baseline;justify-content:center;gap:4px;margin:16px 0}
+.sbig .sn{font-family:'Fraunces',serif;font-size:3.8rem;font-weight:700;color:var(--navy);line-height:1}
+.sbig .sd{font-size:1.3rem;color:var(--gray)}
+.sbars{margin-bottom:20px}
+.sbar{margin-bottom:10px}
+.sbl{display:flex;justify-content:space-between;font-size:.77rem;font-weight:600;color:var(--navy);margin-bottom:4px}
+.sbt{height:7px;background:var(--lgray);border-radius:100px;overflow:hidden}
+.sbf{height:100%;border-radius:100px}
+@keyframes fill{from{width:0}}
+.sbf{animation:fill 1.2s ease forwards}
+.gsec{margin-bottom:20px}
+.gsec h4{font-size:.75rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.gr{display:flex;align-items:center;gap:8px;font-size:.83rem;color:var(--gray);padding:7px 0;border-bottom:1px solid var(--lgray)}
+.gr:last-child{border-bottom:none}
+.gd{width:7px;height:7px;border-radius:50%;background:var(--amber);flex-shrink:0}
+.cert{border:2px solid var(--amber);border-radius:14px;padding:20px;text-align:center;margin-bottom:20px;background:linear-gradient(135deg,#fffbeb,#fef3c7)}
+.cert h4{font-family:'Fraunces',serif;font-size:1rem;color:var(--navy);margin-bottom:4px}
+.cert p{font-size:.79rem;color:var(--gray);line-height:1.5}
+.cid{font-size:.7rem;color:#92400e;font-weight:600;margin-top:5px}
+.estatus{padding:10px 14px;border-radius:10px;font-size:.82rem;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.estatus.ok{background:var(--tl);color:var(--teal2)}
+.estatus.sending{background:#fef3c7;color:#92400e}
+.estatus.fail{background:#fef2f2;color:#991b1b}
+.rcta{display:block;width:100%;background:var(--teal);color:#fff;text-align:center;padding:15px;border-radius:12px;font-weight:700;font-size:.97rem;border:none;cursor:pointer;margin-bottom:10px;font-family:'DM Sans',sans-serif;transition:background .2s}
+.rcta:hover{background:var(--teal2)}
+.rsec{text-align:center;font-size:.78rem;color:var(--gray);line-height:1.6}
+
+/* PAYMENT */
+.pwrap{max-width:820px;margin:0 auto;padding:28px 24px 60px}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.psum{background:var(--navy);border-radius:20px;padding:30px 26px;color:#fff}
+.psum-logo{font-family:'Fraunces',serif;font-size:1.15rem;color:#fff;margin-bottom:22px}
+.psum-logo span{color:var(--teal)}
+.pplan{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px;margin-bottom:18px}
+.ppn{font-size:.7rem;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.ppt{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;margin-bottom:3px}
+.ppd{font-size:.78rem;color:rgba(255,255,255,.48)}
+.pln{display:flex;justify-content:space-between;font-size:.84rem;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.62)}
+.pln:last-child{border-bottom:none}
+.pln strong{color:#fff}
+.ptot{display:flex;justify-content:space-between;align-items:baseline;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.13)}
+.ptot span{font-size:.8rem;color:rgba(255,255,255,.48)}
+.ptot .pr{font-family:'Fraunces',serif;font-size:1.85rem;font-weight:700;color:var(--teal)}
+.pfi{display:flex;align-items:center;gap:7px;font-size:.79rem;color:rgba(255,255,255,.52);padding:4px 0}
+.pfi::before{content:'✓';color:var(--teal);font-weight:700}
+.pform{background:#fff;border-radius:20px;box-shadow:0 4px 24px rgba(12,26,53,.1);padding:30px 26px}
+.pform h3{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:700;color:var(--navy);margin-bottom:4px}
+.pfsub{font-size:.82rem;color:var(--gray);margin-bottom:22px}
+.rzpbtn{width:100%;padding:15px;background:linear-gradient(135deg,#072654,#1e4db7);color:#fff;border:none;border-radius:11px;font-family:'DM Sans',sans-serif;font-size:.97rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:12px;transition:opacity .2s}
+.rzpbtn:hover{opacity:.9}
+.rzpbtn.green{background:linear-gradient(135deg,#166534,#22c55e)}
+.step-box{background:var(--off);border-radius:12px;padding:16px;margin-bottom:16px}
+.step-row{display:flex;align-items:center;gap:10px;font-size:.82rem;color:var(--navy);margin-bottom:8px}
+.step-row:last-child{margin-bottom:0}
+.snum{width:22px;height:22px;background:var(--teal);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;flex-shrink:0}
+.waiting-box{background:#fef3c7;border:1.5px solid var(--amber);border-radius:12px;padding:16px;text-align:center;margin-bottom:14px;display:none}
+.processing-box{text-align:center;padding:20px;display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spinner{width:44px;height:44px;border:3px solid var(--tl);border-top-color:var(--teal);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
+.secure{display:flex;align-items:center;justify-content:center;gap:5px;font-size:.72rem;color:var(--gray);margin-top:12px}
+
+/* SUCCESS */
+.swrap{max-width:500px;margin:0 auto;padding:28px 24px 60px;text-align:center}
+.scard{background:#fff;border-radius:24px;padding:44px 36px;box-shadow:0 4px 24px rgba(12,26,53,.1)}
+.scard .si{font-size:3.5rem;margin-bottom:12px}
+.scard h2{font-family:'Fraunces',serif;font-size:1.85rem;font-weight:700;color:var(--navy);margin-bottom:9px}
+.scard p{font-size:.9rem;color:var(--gray);line-height:1.7;margin-bottom:24px}
+.nxt{background:var(--off);border-radius:14px;padding:20px;margin-bottom:24px;text-align:left}
+.nxt h4{font-size:.76rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:1px;margin-bottom:11px}
+.ni{display:flex;align-items:flex-start;gap:10px;font-size:.84rem;color:var(--gray);padding:7px 0;border-bottom:1px solid var(--lgray)}
+.ni:last-child{border-bottom:none}
+.nn{width:24px;height:24px;flex-shrink:0;background:var(--teal);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700}
+.wabtn{display:flex;align-items:center;justify-content:center;gap:8px;background:#25d366;color:#fff;padding:13px;border-radius:12px;font-weight:700;font-size:.93rem;border:none;cursor:pointer;width:100%;font-family:'DM Sans',sans-serif;text-decoration:none;transition:background .2s}
+.wabtn:hover{background:#1da851}
+
+/* Confetti */
+.cc{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1}
+
+.plan-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+@media(max-width:700px){
+  .row{grid-template-columns:1fr}
+  .pgrid{grid-template-columns:1fr}
+  .card,.rcard,.pform,.psum,.scard{padding:24px 20px}
+}
+@media(max-width:480px){
+  .plan-grid{grid-template-columns:1fr}
+  .psum,.pform{padding:22px 18px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="logo" onclick="location.href='index.html'">Wise<span>Tribes</span></div>
+  <div class="back" onclick="location.href='index.html'">← Home</div>
+</nav>
+
+<!-- ═══ SCREEN 1: REGISTER ═══ -->
+<div id="s1" class="screen active">
+  <div class="steps">
+    <div class="sd on" id="d1"></div>
+    <div class="sd" id="d2"></div>
+    <div class="sd" id="d3"></div>
+    <div class="sd" id="d4"></div>
+  </div>
+  <div class="wrap">
+    <div class="card">
+      <div class="badge">🆓 Free · 2 minutes</div>
+      <h2>Let's personalise your child's assessment</h2>
+      <p class="sub">8 questions matched to your child's class. Get an instant score card showing exactly where they stand.</p>
+
+      <div class="row">
+        <div class="fg">
+          <label>Your Name (Parent) *</label>
+          <input type="text" id="f_pname" placeholder="E.g. Priya Sharma">
+        </div>
+        <div class="fg">
+          <label>Child's Name *</label>
+          <input type="text" id="f_cname" placeholder="E.g. Aryan">
+        </div>
+      </div>
+      <div class="row">
+        <div class="fg">
+          <label>Your Email *</label>
+          <input type="email" id="f_email" placeholder="you@email.com">
+          <div class="errmsg" id="err_email">Please enter a valid email address</div>
+        </div>
+        <div class="fg">
+          <label>WhatsApp Number *</label>
+          <input type="tel" id="f_phone" placeholder="+91 98765 43210" maxlength="15">
+          <div class="errmsg" id="err_phone">Please enter a valid 10-digit Indian mobile number</div>
+        </div>
+      </div>
+
+      <div class="clabel">Child's Current Class *</div>
+      <div class="cgrid" id="cgrid">
+        <div class="copt" id="c5"><span class="cn">5th</span>Class 5</div>
+        <div class="copt" id="c6"><span class="cn">6th</span>Class 6</div>
+        <div class="copt" id="c7"><span class="cn">7th</span>Class 7</div>
+        <div class="copt" id="c8"><span class="cn">8th</span>Class 8</div>
+        <div class="copt" id="c9"><span class="cn">9th</span>Class 9</div>
+        <div class="copt" id="c10"><span class="cn">10th</span>Class 10</div>
+      </div>
+
+      <button class="btn" id="startBtn">Start Free Assessment →</button>
+      <p class="note">🔒 Your details are safe. Score card sent to your email & WhatsApp.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SCREEN 2: ASSESSMENT ═══ -->
+<div id="s2" class="screen">
+  <div class="steps">
+    <div class="sd on"></div>
+    <div class="sd on"></div>
+    <div class="sd"></div>
+    <div class="sd"></div>
+  </div>
+  <div class="wrap">
+    <div class="ameta">
+      <div class="alvl" id="alvl">🧠 Assessment</div>
+      <div class="acnt" id="acnt">Question 1 of 9</div>
+    </div>
+    <div class="pbar"><div class="pfill" id="pfill" style="width:11%"></div></div>
+    <div id="qwrap"></div>
+    <div class="qnav">
+      <button class="bnx" id="nxtbtn" disabled>Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SCREEN 3: RESULT ═══ -->
+<div id="s3" class="screen">
+  <div class="steps">
+    <div class="sd on"></div><div class="sd on"></div><div class="sd on"></div><div class="sd"></div>
+  </div>
+  <div class="rwrap">
+    <div class="rcard" id="rcard"></div>
+  </div>
+</div>
+
+<!-- ═══ SCREEN 4: PAYMENT ═══ -->
+<div id="s4" class="screen">
+  <div class="steps">
+    <div class="sd on"></div><div class="sd on"></div><div class="sd on"></div><div class="sd on"></div>
+  </div>
+  <div class="pwrap">
+    <div class="pgrid">
+      <div class="psum">
+        <div class="psum-logo">Wise<span>Tribes</span></div>
+        <div class="pplan">
+          <div class="ppn" id="psum-plan">4-Session Trial</div>
+          <div class="ppt" id="psum-title">AI Foundations · Trial Pack</div>
+          <div class="ppd" id="psum-desc">Watch and learn. No commitment.</div>
+        </div>
+        <div class="pln"><span>2 AI sessions / week</span><strong>✓</strong></div>
+        <div class="pln" id="psum-line-1"><span>4 trial sessions total</span><strong>✓</strong></div>
+        <div class="pln"><span>WhatsApp parent updates</span><strong>✓</strong></div>
+        <div class="pln"><span>Class-specific curriculum</span><strong>✓</strong></div>
+        <div class="pln"><span id="psum-rate-label">One-time trial</span><strong id="psum-rate">₹944</strong></div>
+        <div class="ptot"><span>Due today</span><div class="pr" id="psum-due">₹944</div></div>
+        <div style="margin-top:16px">
+          <div class="pfi">Cancel anytime after Month 1</div>
+          <div class="pfi">100% refund if not happy in Week 1</div>
+        </div>
+      </div>
+      <div class="pform">
+        <h3>Choose Your Plan</h3>
+        <p class="pfsub">Secure payment via Razorpay. Card, UPI, Net Banking all accepted.</p>
+
+        <!-- Plan selector -->
+        <div id="ps1">
+          <div class="plan-grid">
+            <div id="plan-trial" onclick="selectPlan('trial')" style="border:2px solid var(--teal);border-radius:12px;padding:14px;cursor:pointer;background:#e6faf7">
+              <div style="font-size:.7rem;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Try First</div>
+              <div style="font-size:1.3rem;font-weight:800;color:var(--navy)">₹944</div>
+              <div style="font-size:.75rem;color:var(--gray);margin-top:2px">4 sessions · incl. GST</div>
+            </div>
+            <div id="plan-full" onclick="selectPlan('full')" style="border:2px solid var(--lgray);border-radius:12px;padding:14px;cursor:pointer">
+              <div style="font-size:.7rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Full Programme</div>
+              <div style="font-size:1.3rem;font-weight:800;color:var(--navy)">₹6,000</div>
+              <div style="font-size:.75rem;color:var(--gray);margin-top:2px">per 3 months · cancel anytime</div>
+            </div>
+          </div>
+          <div class="step-box">
+            <div class="step-row"><span class="snum">1</span>Select a plan above</div>
+            <div class="step-row"><span class="snum">2</span>Click Pay — Razorpay opens</div>
+            <div class="step-row"><span class="snum">3</span>Come back and click "I've Paid"</div>
+          </div>
+          <button class="rzpbtn" id="paybtn">💳 Pay ₹944 — Start Trial</button>
+          <div style="text-align:center;font-size:.78rem;color:var(--gray)">Opens Razorpay in a new tab</div>
+        </div>
+
+        <!-- Step 2: Confirm -->
+        <div class="waiting-box" id="ps2">
+          <div style="font-size:1.2rem;margin-bottom:6px">⏳</div>
+          <div style="font-size:.88rem;font-weight:700;color:#92400e;margin-bottom:4px">Razorpay is open in another tab</div>
+          <div style="font-size:.8rem;color:#92400e;margin-bottom:14px;line-height:1.5">Complete your payment there, then come back and click below</div>
+          <button class="rzpbtn green" id="paidbtn">✅ I've Completed My Payment</button>
+          <div style="margin-top:10px;font-size:.78rem;color:var(--gray)">
+            <span id="reopenbtn" style="color:var(--teal);cursor:pointer;font-weight:600;text-decoration:underline">Haven't paid yet? Open Razorpay again</span>
+          </div>
+        </div>
+
+        <!-- Step 3: Processing -->
+        <div class="processing-box" id="ps3">
+          <div class="spinner"></div>
+          <div style="font-size:.9rem;font-weight:700;color:var(--navy);margin-bottom:4px">Confirming your enrollment...</div>
+          <div style="font-size:.8rem;color:var(--gray)">Sending confirmation to <strong id="pemail"></strong></div>
+        </div>
+
+        <div style="background:var(--tl);border-radius:10px;padding:12px 13px;font-size:.79rem;color:var(--navy);line-height:1.6;margin-top:8px">
+          🔒 WiseTribes never sees your card details — payment is handled entirely by Razorpay.
+        </div>
+        <div class="secure">🔒 256-bit SSL · Secured by Razorpay</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SCREEN 5: SUCCESS ═══ -->
+<div id="s5" class="screen">
+  <div class="swrap">
+    <div class="scard">
+      <div class="si">🎉</div>
+      <h2>You're in, <span id="sname">there</span>!</h2>
+      <p>Welcome to WiseTribes! Enrollment confirmed. Check <strong id="semail"></strong> for your class schedule.</p>
+      <div class="nxt">
+        <h4>What happens next</h4>
+        <div class="ni"><div class="nn">1</div><div>Our team will WhatsApp you within 2 hours to confirm your class time slot.</div></div>
+        <div class="ni"><div class="nn">2</div><div>First session starts this week — phone or laptop is all you need.</div></div>
+        <div class="ni"><div class="nn">3</div><div>By end of Month 1, your child delivers their first real AI project.</div></div>
+        <div class="ni"><div class="nn">4</div><div>Share the free assessment with 5 parents for a referral discount on Month 2.</div></div>
+      </div>
+      <a class="wabtn" href="https://wa.me/919175066296?text=Hi%2C%20I%20just%20enrolled%20in%20WiseTribes!" target="_blank">
+        💬 Message Us on WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- EmailJS — loaded synchronously (no defer) so emailjs.init() works in the inline script below -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+<script>
+// ═══ CONFIG ═══
+var CFG = {
+  EJS_KEY:  'eGyNqC8O8XSEVTTUs',
+  EJS_SVC:  'service_m207c4r',
+  EJS_T1:   'template_2zkwo4t',
+  EJS_T2:   'template_82w68ob',
+  RZP:      'https://rzp.io/rzp/k1TrZmv',
+  RZP_TRIAL: 'https://rzp.io/rzp/GTyQWSm',
+  WA:       '919175066296',
+  CAL:      '',
+  // AiSensy template names — match exactly what's in Meta Business Manager + AiSensy
+  WA_T_ASSESS:  'wisetribes_assessment_complete', // T-1: after assessment
+  WA_T_TRIAL:   'wisetribes_trial_enrolled',      // T-2: after ₹944 trial payment
+  WA_T_MONTHLY: 'wisetribes_monthly_welcome',     // T-3: after ₹6,000 monthly payment
+  WA_T_LOGIN:   'wisetribes_portal_access'        // T-7: login credentials (post-payment, sent via n8n)
+};
+
+// Guard: initialise EmailJS only when it's loaded
+if (typeof emailjs !== 'undefined') {
+  emailjs.init(CFG.EJS_KEY);
+} else {
+  // Fallback — init when the library finishes loading (shouldn't happen now defer is removed)
+  window.addEventListener('load', function() { if (typeof emailjs !== 'undefined') emailjs.init(CFG.EJS_KEY); });
+}
+
+// ═══ STATE ═══
+var D = {
+  pname:'', cname:'', email:'', phone:'',
+  cls: 0,
+  q: 0, score: 0, answers: [],
+  certId: ''
+};
+
+// ═══ SCREEN SWITCH ═══
+function show(id) {
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function wtAlert(msg) {
+  var el = document.getElementById('wtAlertBox');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'wtAlertBox';
+    el.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#991b1b;color:#fff;padding:12px 24px;border-radius:10px;font-family:"DM Sans",sans-serif;font-size:.9rem;font-weight:600;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.3);transition:opacity .3s';
+    document.body.appendChild(el);
+  }
+  el.textContent = msg;
+  el.style.opacity = '1';
+  clearTimeout(el._t);
+  el._t = setTimeout(function(){ el.style.opacity = '0'; }, 3000);
+}
+
+// ═══ CLASS SELECTION ═══
+// Attach click handlers after DOM is ready
+window.addEventListener('DOMContentLoaded', function() {
+  [5,6,7,8,9,10].forEach(function(n) {
+    var el = document.getElementById('c' + n);
+    if (el) {
+      el.addEventListener('click', function() {
+        D.cls = n;
+        // Remove sel from all
+        [5,6,7,8,9,10].forEach(function(x) {
+          var e = document.getElementById('c' + x);
+          if (e) e.classList.remove('sel');
+        });
+        // Add sel to clicked
+        el.classList.add('sel');
+      });
+    }
+  });
+
+  // Start button
+  document.getElementById('startBtn').addEventListener('click', startAssessment);
+
+  // Next button
+  document.getElementById('nxtbtn').addEventListener('click', nextQ);
+
+  // Payment buttons
+  document.getElementById('paybtn').addEventListener('click', openRazorpay);
+  document.getElementById('paidbtn').addEventListener('click', confirmPayment);
+  document.getElementById('reopenbtn').addEventListener('click', openRazorpay);
+});
+
+// ═══ VALIDATION HELPERS ═══
+function clearFieldError(inputId, errId) {
+  var inp = document.getElementById(inputId);
+  var err = document.getElementById(errId);
+  if (inp) inp.classList.remove('err');
+  if (err) err.classList.remove('show');
+}
+function showFieldError(inputId, errId, msg) {
+  var inp = document.getElementById(inputId);
+  var err = document.getElementById(errId);
+  if (inp) { inp.classList.add('err'); inp.focus(); }
+  if (err) { if (msg) err.textContent = msg; err.classList.add('show'); }
+}
+
+function validateEmail(email) {
+  // RFC-compliant-ish: local@domain.tld, domain must have dot, TLD 2+ chars
+  return /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(email);
+}
+
+function validatePhone(phone) {
+  // Strip all non-digits
+  var digits = phone.replace(/\D/g, '');
+  // Accept: 10-digit Indian mobile, or 91 + 10 digits, or +91 + 10 digits
+  if (digits.length === 12 && digits.substring(0,2) === '91') digits = digits.substring(2);
+  if (digits.length === 10) {
+    // Indian mobile numbers start with 6-9
+    return /^[6-9]\d{9}$/.test(digits);
+  }
+  return false;
+}
+
+// ═══ FORM & START ═══
+function startAssessment() {
+  var pname = document.getElementById('f_pname').value.trim();
+  var cname = document.getElementById('f_cname').value.trim();
+  var email = document.getElementById('f_email').value.trim();
+  var phone = document.getElementById('f_phone').value.trim();
+  var valid = true;
+
+  // Clear all previous errors
+  clearFieldError('f_email', 'err_email');
+  clearFieldError('f_phone', 'err_phone');
+  document.querySelector('.clabel').classList.remove('err-label');
+
+  if (!pname) { wtAlert('Please enter your name'); document.getElementById('f_pname').focus(); return; }
+  if (!cname) { wtAlert('Please enter your child\'s name'); document.getElementById('f_cname').focus(); return; }
+
+  // Email validation
+  if (!email) {
+    showFieldError('f_email', 'err_email', 'Email address is required');
+    wtAlert('Please enter your email address');
+    return;
+  }
+  if (!validateEmail(email)) {
+    showFieldError('f_email', 'err_email', 'Please enter a valid email (e.g. name@example.com)');
+    wtAlert('Please enter a valid email address');
+    return;
+  }
+
+  // WhatsApp number validation
+  if (!phone) {
+    showFieldError('f_phone', 'err_phone', 'WhatsApp number is required');
+    wtAlert('Please enter your WhatsApp number');
+    return;
+  }
+  if (!validatePhone(phone)) {
+    showFieldError('f_phone', 'err_phone', 'Enter a valid 10-digit Indian mobile number (starts with 6-9)');
+    wtAlert('Please enter a valid 10-digit WhatsApp number');
+    return;
+  }
+
+  // Class selection
+  if (!D.cls) {
+    document.querySelector('.clabel').classList.add('err-label');
+    wtAlert('Please select your child\'s class');
+    return;
+  }
+
+  D.pname = pname;
+  D.cname = cname;
+  D.email = email;
+  D.phone = phone;
+  D.q = 0;
+  D.score = 0;
+  D.answers = [];
+  D.certId = 'WT-' + Date.now().toString(36).toUpperCase();
+
+  show('s2');
+  renderQ();
+  // Meta Pixel: Assessment started
+  if (typeof fbq !== 'undefined') fbq('trackCustom', 'AssessmentStarted');
+}
+
+// ═══ QUESTIONS ═══
+var QB = {
+  low: [
+    {q:"What does AI stand for?", opts:["Automatic Internet","Artificial Intelligence","Advanced Information","Auto Input"], ans:1},
+    {q:"Which of these is an example of AI in daily life?", opts:["A ceiling fan","A voice assistant like Siri","A regular alarm clock","A paper notebook"], ans:1},
+    {q:"How does a search engine like Google find results?", opts:["It reads every website manually","It uses smart algorithms to match your words to pages","It only shows paid advertisements","It picks results randomly"], ans:1},
+    {q:"What is a chatbot?", opts:["A cleaning robot","A program that can have conversations with you","A type of mobile phone","A school homework app"], ans:1},
+    {q:"Can computers learn from examples — like recognising cats in photos?", opts:["No — computers only follow exact instructions","Yes — this is called machine learning","No — only humans can learn","Computers guess randomly"], ans:1},
+    {q:"What is data?", opts:["A type of software program","Information — like numbers, words, photos, or videos","Only computer hardware","A programming language"], ans:1},
+    {q:"Which everyday device uses AI?", opts:["A paper notebook","A mechanical clock","A smartphone with a voice assistant","A wooden ruler"], ans:2},
+    {q:"If you could build anything with AI, which would you choose?", opts:["A chatbot that answers homework questions","A game that learns how you play and gets harder","An app that recommends movies you'd love","All of these sound amazing!"], ans:3}
+  ],
+  mid: [
+    {q:"What is machine learning?", opts:["Programming a computer step by step","Teaching a computer to learn from data and improve over time","Downloading new apps automatically","Building physical robots"], ans:1},
+    {q:"How does Netflix recommend shows you might like?", opts:["A person watches your history and picks for you","AI studies what you and similar users watch to predict what you'll enjoy","It shows random popular shows","It only shows new releases"], ans:1},
+    {q:"What is a dataset?", opts:["A type of programming language","A collection of organised information used to train AI","A computer's memory chip","A type of internet connection"], ans:1},
+    {q:"What does an algorithm do?", opts:["Stores data on a hard drive","Connects to the internet","Follows a set of rules or steps to solve a problem","Designs websites"], ans:2},
+    {q:"What is pattern recognition in AI?", opts:["Drawing patterns with code","AI's ability to identify regularities or features in data — like recognising faces","Sorting files into folders","Creating colourful graphics"], ans:1},
+    {q:"How does Google Translate work?", opts:["Human translators type answers in real time","AI trained on millions of translated texts predicts the best translation","It uses a dictionary only","It searches the web for answers"], ans:1},
+    {q:"What is a neural network?", opts:["A computer network cable","An AI system loosely inspired by how the human brain connects neurons","A social media platform","A type of database"], ans:1},
+    {q:"What real problem would you most want to solve with AI?", opts:["Help students who struggle with learning disabilities","Predict floods or natural disasters earlier","Detect diseases from phone photos","Any of these — they all matter"], ans:3}
+  ],
+  high: [
+    {q:"What is the key difference between AI and simple automation?", opts:["Automation is newer than AI","AI can learn and adapt from data; automation follows fixed rules without learning","They are exactly the same thing","AI only works on phones"], ans:1},
+    {q:"What is Python primarily used for in AI development?", opts:["Designing websites only","Building, training, and deploying AI models — it has the most AI libraries","Only database management","Only creating games"], ans:1},
+    {q:"What is an API?", opts:["A type of programming language","A set of rules that lets two software systems communicate and share data","A hardware component","A virus protection program"], ans:1},
+    {q:"What is training data?", opts:["Exercises a programmer does to improve","The dataset used to teach an AI model to recognise patterns","Test questions for students","A backup copy of software"], ans:1},
+    {q:"How does image recognition AI work?", opts:["It compares images to a fixed list in a database","It's trained on millions of labelled images to learn features and patterns at multiple levels","A human checks each image in real time","It reads text descriptions of images"], ans:1},
+    {q:"What is a 'model' in machine learning?", opts:["A physical 3D print","The mathematical structure that has learned patterns from training data and makes predictions","A type of computer hardware","A graphic design template"], ans:1},
+    {q:"What is prompt engineering?", opts:["Building physical AI hardware","Crafting careful inputs to get better, more accurate outputs from AI language models","Designing the visual interface of an app","Testing code in a lab"], ans:1},
+    {q:"Which AI project would you be most excited to build?", opts:["An app that detects fake news using NLP","A Python script that automates a boring daily task","A tool that analyses social media sentiment","All of these — I want to build them all"], ans:3}
+  ]
+};
+
+function getQs() {
+  if (D.cls <= 6) return QB.low;
+  if (D.cls <= 8) return QB.mid;
+  return QB.high;
+}
+
+function renderQ() {
+  var qs = getQs();
+  var q = qs[D.q];
+  var total = qs.length;
+  var pct = Math.round((D.q + 1) / total * 100);
+  var lvl = D.cls <= 6 ? 'Class 5–6 Level' : D.cls <= 8 ? 'Class 7–8 Level' : 'Class 9–10 Level';
+
+  document.getElementById('alvl').textContent = '🧠 ' + lvl;
+  document.getElementById('acnt').textContent = 'Question ' + (D.q + 1) + ' of ' + total;
+  document.getElementById('pfill').style.width = pct + '%';
+  document.getElementById('nxtbtn').disabled = true;
+
+  var lets = ['A','B','C','D'];
+  var html = '<div class="card" style="animation:none"><div class="qnum">Question ' + (D.q+1) + '</div>';
+  html += '<div class="qtext">' + q.q + '</div>';
+  html += '<div class="opts">';
+  for (var i = 0; i < q.opts.length; i++) {
+    html += '<button class="opt" data-idx="' + i + '"><span class="ol">' + lets[i] + '</span>' + q.opts[i] + '</button>';
+  }
+  html += '</div></div>';
+  document.getElementById('qwrap').innerHTML = html;
+
+  // Attach click handlers to options
+  document.querySelectorAll('.opt').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var idx = parseInt(this.getAttribute('data-idx'));
+      selOpt(idx);
+    });
+  });
+}
+
+function selOpt(i) {
+  var qs = getQs();
+  var q = qs[D.q];
+  if (document.querySelector('.opt.cor, .opt.wrg')) return;
+
+  document.querySelectorAll('.opt').forEach(function(btn, j) {
+    if (j === q.ans) btn.classList.add('cor');
+    else if (j === i) btn.classList.add('wrg');
+  });
+
+  if (i === q.ans) D.score++;
+  D.answers.push(i);
+  document.getElementById('nxtbtn').disabled = false;
+}
+
+function nextQ() {
+  var qs = getQs();
+  D.q++;
+  if (D.q >= qs.length) showResult();
+  else renderQ();
+}
+
+// ═══ RESULT ═══
+function showResult() {
+  var qs = getQs();
+  var total = qs.length;
+  var pct = Math.round(D.score / total * 100);
+  var lvl, lc, emoji, msg, gaps;
+
+  if (pct < 40) {
+    lvl='Beginner'; lc='beg'; emoji='🌱';
+    msg = D.cname + ' is at the beginning of their AI journey — the perfect place to start. WiseTribes Level 1 is designed exactly for this stage.';
+    gaps = ['What AI is and how it learns from data','How chatbots and smart tools are built','Logical thinking and problem solving with tech'];
+  } else if (pct < 70) {
+    lvl='Developing'; lc='dev'; emoji='🚀';
+    msg = D.cname + ' has solid AI awareness and is ready to go deeper. Level 1 will accelerate their understanding with hands-on projects.';
+    gaps = ['Building real AI tools vs. just using them','Python basics for AI development','Applying AI to solve real-world problems'];
+  } else {
+    lvl='Strong'; lc='str'; emoji='⭐';
+    msg = D.cname + ' already has impressive AI knowledge! Level 1 will channel this into real project-building.';
+    gaps = ['Building advanced AI applications from scratch','Training and fine-tuning AI models','Creating a portfolio-ready AI project'];
+  }
+
+  var now = new Date().toLocaleDateString('en-IN', {day:'numeric', month:'long', year:'numeric'});
+  var bclr = ['#00c4a7','#8b5cf6','#f59e0b'];
+  var bw = [pct, Math.min(pct+15,100), Math.max(pct-10,10)];
+  var concepts = ['AI Concepts','Logical Thinking','Problem Solving'];
+
+  show('s3');
+  confetti();
+  // Meta Pixel: Assessment completed — lead captured
+  if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+
+  var html = '<div style="text-align:center;margin-bottom:22px">';
+  html += '<div style="font-size:3rem;margin-bottom:8px">' + emoji + '</div>';
+  html += '<div class="rlvl ' + lc + '">' + lvl + '</div>';
+  html += '<h2 style="font-family:Fraunces,serif;font-size:1.7rem;font-weight:700;color:var(--navy);margin-bottom:6px">' + D.cname + '\'s AI Score Card</h2>';
+  html += '<p style="font-size:.86rem;color:var(--gray);line-height:1.65">' + msg + '</p></div>';
+  html += '<div class="sbig"><div class="sn">' + D.score + '</div><div class="sd">/ ' + total + '</div></div>';
+  html += '<div class="sbars">';
+  for (var i = 0; i < concepts.length; i++) {
+    html += '<div class="sbar"><div class="sbl"><span>' + concepts[i] + '</span><span>' + bw[i] + '%</span></div>';
+    html += '<div class="sbt"><div class="sbf" style="width:' + bw[i] + '%;background:' + bclr[i] + ';animation-delay:' + (i*0.2) + 's"></div></div></div>';
+  }
+  html += '</div>';
+  html += '<div class="gsec"><h4>Top 3 Learning Gaps</h4>';
+  for (var i = 0; i < gaps.length; i++) {
+    html += '<div class="gr"><span class="gd"></span>' + gaps[i] + '</div>';
+  }
+  html += '</div>';
+  html += '<div class="cert"><div style="font-size:1.8rem;margin-bottom:6px">🏅</div>';
+  html += '<h4>Participation Certificate</h4>';
+  html += '<p>This certifies that <strong>' + D.cname + '</strong> completed the WiseTribes AI Assessment — Class ' + D.cls + ' Level on ' + now + '.</p>';
+  html += '<div class="cid">Certificate ID: ' + D.certId + '</div></div>';
+  html += '<div class="estatus sending" id="estatus"><span>⏳</span> Sending score card to ' + D.email + '...</div>';
+  // Two distinct CTAs:
+  //   Primary "Book Free Demo Class"   → /demo-groups.html (book a live slot via WhatsApp)
+  //   Secondary "Watch a sample class" → /demo-class-XX.html (recorded video preview)
+  var demoPage = (D.cls<=6) ? 'demo-class-56.html' : (D.cls<=8) ? 'demo-class-78.html' : 'demo-class-910.html';
+  var groupLabel = (D.cls<=6) ? 'Class 5-6' : (D.cls<=8) ? 'Class 7-8' : 'Class 9-10';
+  html += '<button class="rcta" id="demobtn">🎓 Book Free Live Demo Class →</button>';
+  html += '<div class="rsec"><a href="' + demoPage + '" style="color:var(--teal);font-weight:600;text-decoration:none" id="watchsample">👀 Watch a sample class first →</a></div>';
+
+  document.getElementById('rcard').innerHTML = html;
+
+  // Save user data for any demo page they visit
+  try {
+    sessionStorage.setItem('wt_user', JSON.stringify({
+      pname: D.pname, cname: D.cname,
+      email: D.email, phone: D.phone, cls: D.cls
+    }));
+  } catch(e){}
+
+  // Primary: book live demo via WhatsApp + group picker
+  document.getElementById('demobtn').addEventListener('click', function() {
+    if (typeof fbq !== 'undefined') {
+      fbq('trackCustom', 'DemoClassBookClick');
+      fbq('track', 'Lead', { content_name: 'Assessment → Book Demo · ' + groupLabel });
+    }
+    // Send to demo-groups.html (the booking page that lets them pick group + WhatsApp/book)
+    window.location.href = 'demo-groups.html#book-' + groupLabel.toLowerCase().replace(/\s+/g,'-');
+  });
+
+  // Secondary: watch recorded demo video
+  document.getElementById('watchsample').addEventListener('click', function() {
+    if (typeof fbq !== 'undefined') fbq('trackCustom', 'WatchSampleClass');
+  });
+
+  // Save lead to admin server — server sends certificate email via Zoho SMTP
+  saveLead(lvl, pct, gaps);
+  // T-1: wisetribes_assessment_complete — params: parent, child, score, level, gap1, gap2, class
+  sendWhatsApp(CFG.WA_T_ASSESS, D.phone, [D.pname, D.cname, String(D.score), lvl, gaps[0], gaps[1], String(D.cls)]);
+}
+
+// ═══ WISETRIBES ADMIN API (self-hosted — no Airtable) ═══
+var ADMIN_API = 'https://api.wisetribes.io/api';
+
+function saveLead(lvl, pct, gaps) {
+  var attribution = (window.WT && window.WT.attribution) ? window.WT.attribution() : {};
+  fetch(ADMIN_API + '/lead', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      parent_name: D.pname,
+      child_name:  D.cname,
+      email:       D.email,
+      whatsapp:    D.phone,
+      class:       D.cls,
+      score:       D.score,
+      score_pct:   pct,
+      ai_level:    lvl,
+      gap_1:       gaps[0],
+      gap_2:       gaps[1],
+      gap_3:       gaps[2],
+      cert_id:     D.certId,
+      attribution: attribution
+    })
+  })
+  .then(function(r){ console.log('Lead saved', r.status); })
+  .catch(function(e){ console.error('Lead save error:', e); });
+}
+
+// ═══ PLAN SELECTION ═══
+var selectedPlan = 'trial'; // default
+
+function selectPlan(plan) {
+  selectedPlan = plan;
+  var trialCard = document.getElementById('plan-trial');
+  var fullCard  = document.getElementById('plan-full');
+  var payBtn    = document.getElementById('paybtn');
+
+  // Sidebar elements (kept in sync so the price summary always matches the chosen plan)
+  var sumPlan  = document.getElementById('psum-plan');
+  var sumTitle = document.getElementById('psum-title');
+  var sumDesc  = document.getElementById('psum-desc');
+  var sumLine1 = document.getElementById('psum-line-1');
+  var sumRateL = document.getElementById('psum-rate-label');
+  var sumRate  = document.getElementById('psum-rate');
+  var sumDue   = document.getElementById('psum-due');
+
+  if (plan === 'trial') {
+    trialCard.style.border = '2px solid var(--teal)';
+    trialCard.style.background = '#e6faf7';
+    fullCard.style.border  = '2px solid var(--lgray)';
+    fullCard.style.background = '';
+    payBtn.textContent = '💳 Pay ₹944 — Start Trial';
+
+    if (sumPlan)  sumPlan.textContent  = '4-Session Trial';
+    if (sumTitle) sumTitle.textContent = 'AI Foundations · Trial Pack';
+    if (sumDesc)  sumDesc.textContent  = 'Watch and learn. No commitment.';
+    if (sumLine1) sumLine1.innerHTML   = '<span>4 trial sessions total</span><strong>✓</strong>';
+    if (sumRateL) sumRateL.textContent = 'One-time trial';
+    if (sumRate)  sumRate.textContent  = '₹944';
+    if (sumDue)   sumDue.textContent   = '₹944';
+  } else {
+    fullCard.style.border  = '2px solid var(--teal)';
+    fullCard.style.background = '#e6faf7';
+    trialCard.style.border = '2px solid var(--lgray)';
+    trialCard.style.background = '';
+    payBtn.textContent = '💳 Pay ₹6,000 — Full Programme (3 months)';
+
+    if (sumPlan)  sumPlan.textContent  = 'Level 1 Enrollment';
+    if (sumTitle) sumTitle.textContent = 'AI Foundations Program';
+    if (sumDesc)  sumDesc.textContent  = 'Keep the momentum going.';
+    if (sumLine1) sumLine1.innerHTML   = '<span>Monthly AI project</span><strong>✓</strong>';
+    if (sumRateL) sumRateL.textContent = 'Per 3 months';
+    if (sumRate)  sumRate.textContent  = '₹6,000';
+    if (sumDue)   sumDue.textContent   = '₹6,000';
+  }
+}
+
+function updateAdminPaid() {
+  var amount = selectedPlan === 'trial' ? 944 : 6000;
+  fetch(ADMIN_API + '/payment', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      parent_name: D.pname,
+      child_name:  D.cname,
+      email:       D.email,
+      whatsapp:    D.phone,
+      class:       D.cls,
+      amount:      amount
+    })
+  })
+  .then(function(r){ console.log('Payment updated', r.status); })
+  .catch(function(e){ console.error('Payment update error:', e); });
+}
+
+// ═══ EMAILJS ═══
+function sendAssessEmail(lvl, pct, gaps, date) {
+  emailjs.send(CFG.EJS_SVC, CFG.EJS_T1, {
+    to_email: D.email,
+    to_name: D.pname,
+    child_name: D.cname,
+    child_class: D.cls,
+    ai_level: lvl,
+    score: D.score,
+    score_pct: pct,
+    gap_1: gaps[0],
+    gap_2: gaps[1],
+    gap_3: gaps[2],
+    cert_id: D.certId,
+    cert_date: date,
+    demo_link: demoPage,
+    whatsapp_num: '+91 91750 66296',
+    from_name: 'WiseTribes Team'
+  })
+  .then(function() {
+    var el = document.getElementById('estatus');
+    if (el) { el.className = 'estatus ok'; el.innerHTML = '✅ Score card sent to ' + D.email; }
+  })
+  .catch(function(err) {
+    var el = document.getElementById('estatus');
+    if (el) { el.className = 'estatus fail'; el.innerHTML = '⚠️ Email failed — results saved. WhatsApp +91 91750 66296'; }
+  });
+}
+
+function sendPaymentEmail() {
+  // Email 1 — Immediate payment confirmation
+  emailjs.send(CFG.EJS_SVC, CFG.EJS_T2, {
+    to_email: D.email,
+    to_name: D.pname,
+    child_name: D.cname,
+    child_class: D.cls,
+    amount: '₹6,000',
+    whatsapp_link: 'https://wa.me/' + CFG.WA,
+    from_name: 'WiseTribes Team',
+    schedule: 'Your enrollment is confirmed! 🎉 We are preparing your class schedule and will share all details — including the meeting link — on this WhatsApp number and email shortly. Please save our WhatsApp number +91 91750 66296 so you don\'t miss any updates.'
+  })
+  .then(function(){ console.log('Payment confirmation email sent'); })
+  .catch(function(e){ console.error('Payment email error:', e); });
+
+  // T-2/T-3: trial vs monthly — params match Notion template variables
+  if (selectedPlan === 'trial') {
+    // T-2: wisetribes_trial_enrolled — params: parent, child
+    sendWhatsApp(CFG.WA_T_TRIAL, D.phone, [D.pname, D.cname]);
+  } else {
+    // T-3: wisetribes_monthly_welcome — params: parent, child, class_time, first_class_date
+    sendWhatsApp(CFG.WA_T_MONTHLY, D.phone, [D.pname, D.cname, '6:00 PM', getNextTuesday()]);
+  }
+
+  // Email 2 — Class schedule (sent after 10 seconds)
+  setTimeout(function() {
+    emailjs.send(CFG.EJS_SVC, CFG.EJS_T2, {
+      to_email: D.email,
+      to_name: D.pname,
+      child_name: D.cname,
+      child_class: D.cls,
+      amount: '₹6,000',
+      whatsapp_link: 'https://wa.me/' + CFG.WA,
+      from_name: 'WiseTribes Team',
+      schedule: 'Here is your class schedule:\n\n📅 Days: Every Tuesday and Friday\n🕕 Time: 6:00 PM IST\n💻 Format: Online sessions\n🔗 Session links will be shared on your WhatsApp and email before each class\n\n🗓️ First session: ' + getNextTuesday() + ' at 6:00 PM IST\n\nPlease add these to your calendar. If you have any questions before the first session, WhatsApp us at +91 91750 66296 — we respond personally to every parent.\n\nSee you soon! 🚀'
+    })
+    .then(function(){ console.log('Schedule email sent'); })
+    .catch(function(e){ console.error('Schedule email error:', e); });
+  }, 10000);
+}
+
+// ═══ DYNAMIC DATE HELPER ═══
+function getNextTuesday() {
+  var d = new Date();
+  var day = d.getDay(); // 0=Sun,1=Mon,...,2=Tue
+  var daysUntil = (2 - day + 7) % 7 || 7; // days until next Tuesday (never 0)
+  d.setDate(d.getDate() + daysUntil);
+  return d.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+// ═══ WHATSAPP (proxied through admin server — key not exposed) ═══
+function sendWhatsApp(templateName, destination, params) {
+  var phone = destination.replace(/\D/g, '');
+  if (phone.length === 10) phone = '91' + phone;
+  fetch(ADMIN_API + '/whatsapp', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ templateName: templateName, phone: phone, params: params })
+  })
+  .then(function(r){ console.log('WhatsApp sent', templateName, r.status); })
+  .catch(function(e){ console.error('WhatsApp error', templateName, e); });
+}
+
+// ═══ PAYMENT ═══
+function openRazorpay() {
+  var link = selectedPlan === 'trial' ? CFG.RZP_TRIAL : CFG.RZP;
+  window.open(link, '_blank');
+  document.getElementById('ps1').style.display = 'none';
+  document.getElementById('ps2').style.display = 'block';
+}
+
+function confirmPayment() {
+  document.getElementById('ps2').style.display = 'none';
+  document.getElementById('ps3').style.display = 'block';
+  document.getElementById('pemail').textContent = D.email;
+  // updateAdminPaid sends payment to server — server emails parent via Zoho SMTP
+  updateAdminPaid();
+  // Note: sendPaymentEmail (EmailJS) removed — server-side Zoho handles it reliably
+  setTimeout(function() {
+    document.getElementById('sname').textContent = D.cname || D.pname;
+    document.getElementById('semail').textContent = D.email;
+    show('s5');
+    confetti();
+  }, 2500);
+}
+
+// ═══ CONFETTI ═══
+function confetti() {
+  var canvas = document.getElementById('cc');
+  if (!canvas) { canvas = document.createElement('canvas'); canvas.className='cc'; canvas.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1'; document.body.appendChild(canvas); }
+  var ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  var ps = [];
+  var clrs = ['#00c4a7','#f59e0b','#ffffff','#8b5cf6','#ef4444','#22c55e'];
+  for (var i = 0; i < 120; i++) {
+    ps.push({
+      x: Math.random()*canvas.width, y: -20-Math.random()*200,
+      w: 5+Math.random()*9, h: 3+Math.random()*5,
+      c: clrs[Math.floor(Math.random()*clrs.length)],
+      r: Math.random()*360, sp: 2+Math.random()*4,
+      dr: (Math.random()-.5)*2, sr: (Math.random()-.5)*5
+    });
+  }
+  var fr = 0;
+  function draw() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ps.forEach(function(p) {
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r*Math.PI/180);
+      ctx.fillStyle = p.c; ctx.globalAlpha = .85;
+      ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); ctx.restore();
+      p.y+=p.sp; p.x+=p.dr; p.r+=p.sr;
+    });
+    fr++;
+    if (fr < 140) requestAnimationFrame(draw);
+    else ctx.clearRect(0,0,canvas.width,canvas.height);
+  }
+  draw();
+}
+</script>
+</body>
+</html>
